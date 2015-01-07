@@ -17,8 +17,8 @@
         android:layout_x="70dp"
         android:layout_y="262dp"
         android:ems="10"
-        android:inputType="text"
-        android:text="古堆山" />
+        android:inputType="text" />
+        <!-- android:text="古堆山" /> -->
 
     <AutoCompleteTextView
         android:id="@+id/text_begin"
@@ -28,8 +28,8 @@
         android:layout_x="94dp"
         android:layout_y="212dp"
         android:ems="10"
-        android:inputType="text"
-        android:text="长沙火车站" />
+        android:inputType="text" />
+       <!--  android:text="长沙火车站" /> -->
 
     <RadioGroup
         android:id="@+id/radioGroup1"
