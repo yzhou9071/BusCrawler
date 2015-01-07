@@ -9,6 +9,9 @@ import java.util.LinkedHashSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.example.buscrawler.MainActivity;
+
+import android.app.ProgressDialog;
 import android.database.sqlite.SQLiteDatabase;
 
 public class Spider implements Runnable {
@@ -27,11 +30,7 @@ public class Spider implements Runnable {
 	public static ArrayList<String> pos = new ArrayList<String>();
 	public static ArrayList<String> routes = new ArrayList<String>();
 	public static ArrayList<Integer> index = new ArrayList<Integer>();
-	/*
-	String pos[] = new String[20480];
-	String routes[] = new String[20480];
-	int index[] = new int[20480];
-	*/
+	
 	public Spider(String startUrl, int maxUrl, String searchString,String city) {
 		this.startUrl = startUrl;
 		this.maxUrl = maxUrl;
@@ -61,29 +60,27 @@ public class Spider implements Runnable {
 	}
 
 	private String downloadPage(URL pageUrl) {
-		try  
-		{  
-		HttpURLConnection conn = (HttpURLConnection) pageUrl.openConnection();  
-		conn.setDoInput(true);  
-		conn.setConnectTimeout(10000);  
-		conn.setRequestMethod("GET");  
-		conn.setRequestProperty("accept", "*/*");  
-		conn.connect();  
-		InputStream stream = conn.getInputStream();  
-		ByteArrayOutputStream data =new ByteArrayOutputStream();
-		byte[] buffer = new byte[1024];  
-		int len = 0;  
-		while((len=stream.read(buffer))!=-1){
-			data.write(buffer, 0, len);
+		try {
+			HttpURLConnection conn = (HttpURLConnection) pageUrl
+					.openConnection();
+			conn.setDoInput(true);
+			conn.setConnectTimeout(10000);
+			conn.setRequestMethod("GET");
+			conn.setRequestProperty("accept", "*/*");
+			conn.connect();
+			InputStream stream = conn.getInputStream();
+			ByteArrayOutputStream data = new ByteArrayOutputStream();
+			byte[] buffer = new byte[1024];
+			int len = 0;
+			while ((len = stream.read(buffer)) != -1) {
+				data.write(buffer, 0, len);
+			}
+			stream.close();
+			String str = new String(data.toByteArray(), "utf-8");
+			return str;
+		} catch (Exception ee) {
+			System.out.print("ee:" + ee.getMessage());
 		}
-		stream.close();
-		String str = new String(data.toByteArray(),"utf-8");
-		return str;
-		}  
-		catch(Exception ee)  
-		{  
-		System.out.print("ee:"+ee.getMessage());   
-		}  
 		return null;
 	}
 
@@ -103,6 +100,7 @@ public class Spider implements Runnable {
 		while (ret){
 			for (int i=1;i<=mat.groupCount();i++) {
 				linklist.add(startUrl+"/"+mat.group(i));
+				linklist.add(startUrl+"/"+mat.group(i)+"?back=true");
 			}
 			ret = mat.find();
 		}
@@ -152,11 +150,6 @@ public class Spider implements Runnable {
 
 		toCrawlList.addAll(getSpecificUrl(startUrl,caseSensitive,city));
 		
-		/*
-		Document document = DocumentHelper.createDocument(); 
-	    Element root = DocumentHelper.createElement("businfo"); 
-	    document.setRootElement(root);
-	    */
 		int count = 0;
 		while (toCrawlList.size() > 0) {
 			String specificUrl = removeWwwFromUrl(toCrawlList.iterator().next());
@@ -174,12 +167,12 @@ public class Spider implements Runnable {
 			mat = pat.matcher(pageContents);
 			ret=mat.find();
 			int i = 1;
+			//System.out.println("**Routes:"+route_tmp);
 			while(ret){
-				//System.out.println("*************** I:"+i+"**Route:"+route_tmp+"**Pos:"+mat.group(1));
 				index.add(i);
 				routes.add(route_tmp);
 				pos.add(mat.group(1));
-				System.out.println("**Count:"+count+"**Index:"+index.get(count)+"**Routes:"+routes.get(count)+"**Pos:"+pos.get(count));
+				//System.out.println("**Count:"+count+"**Index:"+index.get(count)+"**Routes:"+routes.get(count)+"**Pos:"+pos.get(count));
 				i++;count++;
 				ret=mat.find();
 			}

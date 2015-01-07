@@ -5,7 +5,6 @@
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
-	<classpathentry kind="lib" path="/home/yzhou/workspace_java/BusCrawler/bin/dom4j-1.6.1.jar"/>
 	<classpathentry kind="lib" path="/home/yzhou/workspace_java/BusCrawler/libs/dom4j-1.6.1.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
