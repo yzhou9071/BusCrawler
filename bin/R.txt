@@ -335,8 +335,9 @@ int drawable abc_textfield_search_default_mtrl_alpha 0x7f020031
 int drawable abc_textfield_search_material 0x7f020032
 int drawable bground1 0x7f020033
 int drawable ic_launcher 0x7f020034
-int drawable progress_small 0x7f020035
-int drawable welcome 0x7f020036
+int drawable icon 0x7f020035
+int drawable progress_small 0x7f020036
+int drawable welcome 0x7f020037
 int id action_bar 0x7f050031
 int id action_bar_activity_content 0x7f050018
 int id action_bar_container 0x7f050030
