@@ -25,15 +25,15 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class MainActivity extends ActionBarActivity {
-	private static final String[] citylist_ch = {"长沙"};
-	private static final String[] citylist_en = {"changsha"};
+	//private static final String[] citylist_ch = {"长沙"};
+	//private static final String[] citylist_en = {"changsha"};
 	private Spinner spin_city;
 	public Sqlite sqlite;
 	private static ArrayList<String> citylist = new ArrayList<String>();
 	private static ArrayList<String> citych = new ArrayList<String>();
 	private static ArrayList<String> cityen = new ArrayList<String>();
 	private static ArrayList<String> historylist = new ArrayList<String>();
-	private ProgressDialog prodia;
+	//private ProgressDialog prodia;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +42,8 @@ public class MainActivity extends ActionBarActivity {
 
 		sqlite = new Sqlite(this,"businfo");
 		
-		Button btn_online = (Button) findViewById(R.id.btn_online);
-		btn_online.setOnClickListener(onlineClickListener);
+		/*Button btn_online = (Button) findViewById(R.id.btn_online);
+		btn_online.setOnClickListener(onlineClickListener);*/
 		
 		Button btn_offline = (Button) findViewById(R.id.btn_offline);
 		btn_offline.setOnClickListener(offlineClickListener);
@@ -55,15 +55,19 @@ public class MainActivity extends ActionBarActivity {
 	}
 	
 	public void initValues() {
+		citylist.clear();
 		citylist = sqlite.getCity();
+		
+		citych.clear();
+		cityen.clear();
 
 		spin_city = (Spinner) findViewById(R.id.spin_city);
 		ArrayAdapter<String> adapter;
-		if (citylist.isEmpty()) {
+		/*if (citylist.isEmpty()) {
 			Toast.makeText(getApplicationContext(), "可以添加城市哦！", 0).show();
 			adapter = new ArrayAdapter<String>(this,
 					android.R.layout.simple_spinner_item, citylist_ch);
-		} else {
+		} else {*/
 			for (int i = 0; i < citylist.size(); i++) {
 				String tmp = citylist.get(i);
 				citych.add(tmp.substring(0, tmp.indexOf("+")));
@@ -72,11 +76,12 @@ public class MainActivity extends ActionBarActivity {
 
 			adapter = new ArrayAdapter<String>(this,
 					android.R.layout.simple_spinner_item, citych);
-		}
+		//}
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		spin_city.setAdapter(adapter);
 		spin_city.setVisibility(View.VISIBLE);
 
+		historylist.clear();
 		historylist = sqlite.getHistory();
 		// System.out.println("&&&&&&&&&&&&&"+historylist);
 		ArrayAdapter<String> adapter_begin = new ArrayAdapter<String>(this,
@@ -89,7 +94,7 @@ public class MainActivity extends ActionBarActivity {
 		AutoCompleteTextView text_end = (AutoCompleteTextView) findViewById(R.id.text_end);
 		text_end.setAdapter(adapter_end);
 	}
-	
+/*	
 	private OnClickListener onlineClickListener = new OnClickListener(){
 		public void onClick(View v) {
 			EditText text_begin = (EditText) findViewById(R.id.text_begin);
@@ -101,7 +106,6 @@ public class MainActivity extends ActionBarActivity {
 			String city_ch = (String) spin_city.getSelectedItem();
 			String city = null;
 			
-
 			if (citylist.isEmpty()) {
 				for (int i = 0; i < citylist_ch.length; i++) {
 					if (city_ch.equals(citylist_ch[i])) {
@@ -136,10 +140,10 @@ public class MainActivity extends ActionBarActivity {
 				System.out.println("**POS:" + pos.get(i) + "**ROUTES:"
 						+ routes.get(i) + "**INDEX:" + index.get(i));
 				sqlite.insert(city, pos.get(i), routes.get(i), index.get(i));
-				/*
+				
 				 * if(index.get(i) == 1){ sqlite.insertLine(city+"_line",
 				 * routes.get(i)); }
-				 */
+				 
 			}
 			//System.out.println("DB Insert Success...");
 			sqlite.close();
@@ -148,7 +152,7 @@ public class MainActivity extends ActionBarActivity {
 			// text_begin.setText("Success !");
 		}
 	};
-	
+	*/
 	private OnClickListener offlineClickListener = new OnClickListener(){
 		public void onClick(View v){
 			EditText text_begin = (EditText) findViewById(R.id.text_begin);
@@ -159,9 +163,9 @@ public class MainActivity extends ActionBarActivity {
 			
 			String city_ch = (String) spin_city.getSelectedItem();
 			String city = null;
-			for(int i=0;i<citylist_ch.length;i++){
-				if(city_ch.equals(citylist_ch[i])){
-					city = citylist_en[i];
+			for(int i=0;i<citych.size();i++){
+				if(city_ch.equals(citych.get(i))){
+					city = cityen.get(i);
 					break;
 				}
 			}
@@ -172,16 +176,16 @@ public class MainActivity extends ActionBarActivity {
 			String line = null;
 			//search by diff ways
 			if(rbt_z.isChecked()){
-				System.out.println("XUAN ZHONG ZONGHE");
+				//System.out.println("XUAN ZHONG ZONGHE");
 				line = sqlite.search_z(city, text_begin.getText().toString().trim(), text_end.getText().toString().trim());
 			}
 			if(rbt_d.isChecked()){
-				System.out.println("XUAN ZHONG ZHIDA");
+				//System.out.println("XUAN ZHONG ZHIDA");
 				line = sqlite.search_d(city, text_begin.getText().toString().trim(), text_end.getText().toString().trim());
 				//text_end.setText(line);
 			}
 			if(rbt_h.isChecked()){
-				System.out.println("XUAN ZHONG HUANCHENG");
+				//System.out.println("XUAN ZHONG HUANCHENG");
 				line = sqlite.search_h(city, text_begin.getText().toString().trim(), text_end.getText().toString().trim());
 			}
 			
@@ -196,7 +200,7 @@ public class MainActivity extends ActionBarActivity {
 		public void onClick(View v){
 			Intent intent = new Intent();
 			intent.setClass(MainActivity.this, City.class);
-			intent.putExtra("str", "come from main activity");
+			//intent.putExtra("str", "come from main activity");
 			startActivity(intent);//无返回值的调用,启动一个明确的activity
 		}
 	};

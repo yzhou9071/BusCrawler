@@ -1,8 +1,10 @@
 package com.example.buscrawler;
 
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import com.example.spider.Spider;
 import com.example.sqlite.Sqlite;
 
 import android.app.AlertDialog;
@@ -41,12 +43,30 @@ public class City extends ActionBarActivity {
 			EditText pinyintext = (EditText) findViewById(R.id.pinyintext);
 
 			String city_ch = citytext.getText().toString();
-			String city_en = citytext.getText().toString();
+			String city_en = pinyintext.getText().toString();
 			if (city_ch.equals("") || city_en.equals("")) {
 				// System.out.println("弹框提示不得为空");
 				Toast.makeText(getApplicationContext(), "信息不得为空！", 0).show();
 			} else {
 				sqlite.insert_city(city_ch, city_en);
+				
+				Toast.makeText(getApplicationContext(), "正在努力更新数据，请稍候再稍候！", 0).show();
+				
+				//爬取公交数据
+				Spider crawler = new Spider("http://bus.mapbar.com/" + city_en
+						+ "/xianlu", 20, "公交线路", city_en);
+				crawler.buscrawler(city_en);
+				ArrayList<String> routes = crawler.getRoutes();
+				ArrayList<String> pos = crawler.getPos();
+				ArrayList<Integer> index = crawler.getIndex();
+				sqlite.upgrade(city_en);
+				for (int i = 0; i < routes.size(); i++) {
+					//System.out.println("**POS:" + pos.get(i) + "**ROUTES:"
+					//		+ routes.get(i) + "**INDEX:" + index.get(i));
+					sqlite.insert(city_en, pos.get(i), routes.get(i), index.get(i));
+				}
+				sqlite.close();
+				
 				// System.out.println("弹框提示登录成功");
 				// System.out.println("跳转到主页面");
 				Toast.makeText(getApplicationContext(), "添加成功！", 0).show();

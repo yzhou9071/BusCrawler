@@ -138,7 +138,7 @@ public class Sqlite extends SQLiteOpenHelper {
         String sql2 = "from " + table_name + " sr1,"+ table_name +" sr2 ";
         String sql3 = "where sr1.ROUTES=sr2.ROUTES and sr1.POINT<sr2.POINT and sr1.POS=\"" + beginPoint + "\" and sr2.POS=\"" + endPoint +"\"";
         
-        String result = new String();       
+        String result = new String();
         Cursor C = db.rawQuery(sql1 + sql2 +sql3,null);
         while(C.moveToNext()){
             //String start = C.getString(C.getColumnIndex("start"));
@@ -171,6 +171,25 @@ public class Sqlite extends SQLiteOpenHelper {
 			db.insert("citylist", null, cv);
 		}
 		db.close();
+	}
+	
+	public Boolean check_city(String cityname){
+		Boolean isin = false;
+		
+		db = this.getWritableDatabase();
+		String sql = "CREATE TABLE if not exists citylist (CITYCH varchar, CITYEN varchar);";
+		db.execSQL(sql);
+		db.close();
+		
+		db = this.getReadableDatabase();
+		sql = "select * from citylist where CITYEN=\""+cityname+"\"";
+		Cursor C = db.rawQuery(sql,null);
+		while(C.moveToNext()){
+			isin = true;
+        }
+		db.close();
+		
+		return isin;
 	}
 	
 	//获取城市

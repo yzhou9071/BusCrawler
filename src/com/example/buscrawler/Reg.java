@@ -1,8 +1,10 @@
 package com.example.buscrawler;
 
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import com.example.spider.Spider;
 import com.example.sqlite.Sqlite;
 
 import android.app.AlertDialog;
@@ -37,32 +39,48 @@ public class Reg extends ActionBarActivity {
     }  
 
 	private OnClickListener regClickListener = new OnClickListener(){
-		public void onClick(View v){
+		public void onClick(View v) {
 			EditText username = (EditText) findViewById(R.id.username);
 			EditText userpwd = (EditText) findViewById(R.id.userpwd);
 			EditText userpwdverify = (EditText) findViewById(R.id.userpwdverify);
-			
+
 			String name = username.getText().toString();
 			String pwd = userpwd.getText().toString();
 			String pwdverify = userpwdverify.getText().toString();
-			if(name.equals("") || pwd.equals("") || pwdverify.equals("")){
-				//System.out.println("弹框提示不得为空");
-				Toast.makeText(getApplicationContext(),"注册信息不得为空！", 0).show();
-			}
-			else if(pwd.equals(pwdverify)){
+			if (name.equals("") || pwd.equals("") || pwdverify.equals("")) {
+				// System.out.println("弹框提示不得为空");
+				Toast.makeText(getApplicationContext(), "注册信息不得为空！", 0).show();
+			} else if (pwd.equals(pwdverify)) {
 				sqlite.create_user();
 				sqlite.insert_user(name, pwd);
 				sqlite.close();
-				Toast.makeText(getApplicationContext(),"注册成功！", 0).show();
-				
+				Toast.makeText(getApplicationContext(), "注册成功！", 0).show();
+
+				Toast.makeText(getApplicationContext(), "努力为您配置数据！", 0).show();
+
+				sqlite.insert_city("长沙", "changsha");
+				if (!sqlite.check_city("changsha")) {
+					Spider crawler = new Spider("http://bus.mapbar.com/changsha/xianlu", 20, "公交线路", "changsha");
+					crawler.buscrawler("changsha");
+					ArrayList<String> routes = crawler.getRoutes();
+					ArrayList<String> pos = crawler.getPos();
+					ArrayList<Integer> index = crawler.getIndex();
+					sqlite.upgrade("changsha");
+					for (int i = 0; i < routes.size(); i++) {
+						sqlite.insert("changsha", pos.get(i), routes.get(i),index.get(i));
+					}
+					sqlite.close();
+				}
+
+				Toast.makeText(getApplicationContext(), "数据配置成功，马上跳转！", 0).show();
+
 				final Intent intent = new Intent();
 				intent.setClass(Reg.this, MainActivity.class);
-				intent.putExtra("str", "come from reg activity");
-				startActivity(intent);//无返回值的调用,启动一个明确的activity
-			}
-			else{
-				//System.out.println("弹框提示密码输入错误");
-				Toast.makeText(getApplicationContext(),"两次密码不一致！", 0).show();
+				//intent.putExtra("str", "come from reg activity");
+				startActivity(intent);// 无返回值的调用,启动一个明确的activity
+			} else {
+				// System.out.println("弹框提示密码输入错误");
+				Toast.makeText(getApplicationContext(), "两次密码不一致！", 0).show();
 			}
 		}
 	};

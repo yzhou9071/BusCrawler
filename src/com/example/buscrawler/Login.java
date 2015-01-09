@@ -57,7 +57,7 @@ public class Login extends ActionBarActivity {
 					
 					final Intent intent = new Intent();
 					intent.setClass(Login.this, MainActivity.class);
-					intent.putExtra("str", "come from login activity");
+					//intent.putExtra("str", "come from login activity");
 					startActivity(intent);//无返回值的调用,启动一个明确的activity
 				}
 				else{
