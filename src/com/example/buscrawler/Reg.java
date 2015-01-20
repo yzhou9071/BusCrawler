@@ -1,14 +1,7 @@
 package com.example.buscrawler;
 
 import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
 
-import com.example.spider.Spider;
-import com.example.sqlite.Sqlite;
-
-import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -16,13 +9,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
-import android.view.animation.Animation.AnimationListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.example.spider.Spider;
+import com.example.sqlite.Sqlite;
 
 public class Reg extends ActionBarActivity {
 	private Sqlite sqlite;
@@ -56,28 +48,14 @@ public class Reg extends ActionBarActivity {
 				sqlite.close();
 				Toast.makeText(getApplicationContext(), "注册成功！", 0).show();
 
-				Toast.makeText(getApplicationContext(), "努力为您配置数据！", 0).show();
-
 				sqlite.insert_city("长沙", "changsha");
-				if (!sqlite.check_city("changsha")) {
-					Spider crawler = new Spider("http://bus.mapbar.com/changsha/xianlu", 20, "公交线路", "changsha");
-					crawler.buscrawler("changsha");
-					ArrayList<String> routes = crawler.getRoutes();
-					ArrayList<String> pos = crawler.getPos();
-					ArrayList<Integer> index = crawler.getIndex();
-					sqlite.upgrade("changsha");
-					for (int i = 0; i < routes.size(); i++) {
-						sqlite.insert("changsha", pos.get(i), routes.get(i),index.get(i));
-					}
-					sqlite.close();
-				}
-
-				Toast.makeText(getApplicationContext(), "数据配置成功，马上跳转！", 0).show();
-
-				final Intent intent = new Intent();
-				intent.setClass(Reg.this, MainActivity.class);
-				//intent.putExtra("str", "come from reg activity");
-				startActivity(intent);// 无返回值的调用,启动一个明确的activity
+				//Toast.makeText(getApplicationContext(), "正在努力为您配置数据！", 0).show();
+				Intent intent = new Intent();
+				intent.setClass(Reg.this, Load.class);
+				intent.putExtra("cityname", "changsha");
+				// intent.putExtra("flagFrom", "reg");
+				startActivity(intent);
+				finish();
 			} else {
 				// System.out.println("弹框提示密码输入错误");
 				Toast.makeText(getApplicationContext(), "两次密码不一致！", 0).show();

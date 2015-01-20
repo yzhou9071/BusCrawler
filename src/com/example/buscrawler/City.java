@@ -1,13 +1,7 @@
 package com.example.buscrawler;
 
 import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
 
-import com.example.spider.Spider;
-import com.example.sqlite.Sqlite;
-
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -15,13 +9,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
-import android.view.animation.Animation.AnimationListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.example.spider.Spider;
+import com.example.sqlite.Sqlite;
 
 public class City extends ActionBarActivity {	
 	private Sqlite sqlite;
@@ -50,8 +43,13 @@ public class City extends ActionBarActivity {
 			} else {
 				sqlite.insert_city(city_ch, city_en);
 				
-				Toast.makeText(getApplicationContext(), "正在努力更新数据，请稍候再稍候！", 0).show();
-				
+				Toast.makeText(getApplicationContext(), "添加成功，配置数据ing！", 0).show();
+				final Intent intent = new Intent();
+				intent.setClass(City.this, Load.class);
+				intent.putExtra("cityname", city_en);
+				startActivity(intent);
+				finish();
+				/*
 				//爬取公交数据
 				Spider crawler = new Spider("http://bus.mapbar.com/" + city_en
 						+ "/xianlu", 20, "公交线路", city_en);
@@ -73,18 +71,9 @@ public class City extends ActionBarActivity {
 
 				final Intent intent = new Intent();
 				intent.setClass(City.this, MainActivity.class);
-				intent.putExtra("str", "come from city activity");
-				startActivity(intent);// 无返回值的调用,启动一个明确的activity
+				startActivity(intent);
+				finish();*/
 			}
-		}
-	};
-	
-	private OnClickListener regClickListener = new OnClickListener(){
-		public void onClick(View v){
-			Intent intent = new Intent();
-			intent.setClass(City.this, Reg.class);
-			intent.putExtra("str", "come from login activity");
-			startActivity(intent);//无返回值的调用,启动一个明确的activity
 		}
 	};
 	

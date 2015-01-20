@@ -1,16 +1,9 @@
 package com.example.buscrawler;
 
 import java.util.ArrayList;
-
-import com.example.spider.Spider;
-import com.example.sqlite.Sqlite;
-
-import android.support.v7.app.ActionBarActivity;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,11 +11,11 @@ import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.ProgressBar;
+import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
-import android.widget.EditText;
 import android.widget.Toast;
+import com.example.sqlite.Sqlite;
 
 public class MainActivity extends ActionBarActivity {
 	//private static final String[] citylist_ch = {"长沙"};
@@ -193,6 +186,7 @@ public class MainActivity extends ActionBarActivity {
 			intent.setClass(MainActivity.this, Detail.class);
 			intent.putExtra("line", line);
 			startActivity(intent);//无返回值的调用,启动一个明确的activity
+			finish();
 		}
 	};
 	
@@ -202,6 +196,7 @@ public class MainActivity extends ActionBarActivity {
 			intent.setClass(MainActivity.this, City.class);
 			//intent.putExtra("str", "come from main activity");
 			startActivity(intent);//无返回值的调用,启动一个明确的activity
+			finish();
 		}
 	};
 

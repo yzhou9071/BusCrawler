@@ -1,11 +1,5 @@
 package com.example.buscrawler;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
-import com.example.sqlite.Sqlite;
-
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -13,13 +7,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
-import android.view.animation.Animation.AnimationListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.example.sqlite.Sqlite;
 
 public class Login extends ActionBarActivity {	
 	private Sqlite sqlite;
@@ -59,6 +51,7 @@ public class Login extends ActionBarActivity {
 					intent.setClass(Login.this, MainActivity.class);
 					//intent.putExtra("str", "come from login activity");
 					startActivity(intent);//无返回值的调用,启动一个明确的activity
+					finish();
 				}
 				else{
 					//System.out.println("弹框提示登录失败");
@@ -73,8 +66,9 @@ public class Login extends ActionBarActivity {
 		public void onClick(View v){
 			Intent intent = new Intent();
 			intent.setClass(Login.this, Reg.class);
-			intent.putExtra("str", "come from login activity");
+			//intent.putExtra("str", "come from login activity");
 			startActivity(intent);//无返回值的调用,启动一个明确的activity
+			finish();
 		}
 	};
 	

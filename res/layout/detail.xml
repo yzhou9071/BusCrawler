@@ -17,10 +17,12 @@
         android:layout_y="22dp"
         android:text="返回" />
  -->
+
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="fill_parent"
         android:orientation="vertical" >
+
         <ListView  
             android:id="@+id/buslist"  
             android:layout_width="fill_parent"  

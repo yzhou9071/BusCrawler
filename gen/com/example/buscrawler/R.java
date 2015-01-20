@@ -1633,10 +1633,11 @@ containing a value of this type.
         public static final int abc_textfield_search_default_mtrl_alpha=0x7f020031;
         public static final int abc_textfield_search_material=0x7f020032;
         public static final int bground1=0x7f020033;
-        public static final int ic_launcher=0x7f020034;
-        public static final int icon=0x7f020035;
-        public static final int progress_small=0x7f020036;
-        public static final int welcome=0x7f020037;
+        public static final int bground2=0x7f020034;
+        public static final int ic_launcher=0x7f020035;
+        public static final int icon=0x7f020036;
+        public static final int progress_small=0x7f020037;
+        public static final int welcome=0x7f020038;
     }
     public static final class id {
         public static final int action_bar=0x7f050031;
@@ -1652,15 +1653,16 @@ containing a value of this type.
         public static final int action_mode_bar=0x7f05002e;
         public static final int action_mode_bar_stub=0x7f05002d;
         public static final int action_mode_close_button=0x7f050020;
-        public static final int action_settings=0x7f05005a;
+        public static final int action_settings=0x7f05005b;
         public static final int activity_chooser_view_content=0x7f050021;
         public static final int always=0x7f05000d;
         public static final int beginning=0x7f050012;
         public static final int beginview=0x7f050048;
         public static final int btn_add=0x7f05004b;
-        public static final int btn_login=0x7f050055;
+        public static final int btn_invi=0x7f050051;
+        public static final int btn_login=0x7f050056;
         public static final int btn_offline=0x7f050047;
-        public static final int btn_reg=0x7f050056;
+        public static final int btn_reg=0x7f050057;
         public static final int buslist=0x7f050050;
         public static final int checkbox=0x7f050029;
         public static final int citytext=0x7f05004f;
@@ -1686,7 +1688,7 @@ containing a value of this type.
         public static final int listMode=0x7f050002;
         public static final int list_item=0x7f050025;
         public static final int middle=0x7f050013;
-        public static final int nameview=0x7f050051;
+        public static final int nameview=0x7f050052;
         public static final int never=0x7f05000b;
         public static final int none=0x7f050004;
         public static final int normal=0x7f050001;
@@ -1694,7 +1696,7 @@ containing a value of this type.
         public static final int pinyinview=0x7f05004d;
         public static final int progress_circular=0x7f05001c;
         public static final int progress_horizontal=0x7f05001d;
-        public static final int pwdview=0x7f050052;
+        public static final int pwdview=0x7f050053;
         public static final int radio=0x7f05002b;
         public static final int radio0=0x7f050044;
         public static final int radio1=0x7f050045;
@@ -1723,11 +1725,11 @@ containing a value of this type.
         public static final int title=0x7f050027;
         public static final int up=0x7f050016;
         public static final int useLogo=0x7f050005;
-        public static final int username=0x7f050054;
-        public static final int userpwd=0x7f050053;
-        public static final int userpwdverify=0x7f050057;
-        public static final int verifypwdview=0x7f050058;
-        public static final int welcome_img=0x7f050059;
+        public static final int username=0x7f050055;
+        public static final int userpwd=0x7f050054;
+        public static final int userpwdverify=0x7f050058;
+        public static final int verifypwdview=0x7f050059;
+        public static final int welcome_img=0x7f05005a;
         public static final int withText=0x7f05000e;
         public static final int wrap_content=0x7f050000;
     }
@@ -1785,11 +1787,12 @@ containing a value of this type.
         public static final int city=0x7f030019;
         public static final int detail=0x7f03001a;
         public static final int in_form_left=0x7f03001b;
-        public static final int login=0x7f03001c;
-        public static final int out_form_right=0x7f03001d;
-        public static final int reg=0x7f03001e;
-        public static final int support_simple_spinner_dropdown_item=0x7f03001f;
-        public static final int welcome=0x7f030020;
+        public static final int load=0x7f03001c;
+        public static final int login=0x7f03001d;
+        public static final int out_form_right=0x7f03001e;
+        public static final int reg=0x7f03001f;
+        public static final int support_simple_spinner_dropdown_item=0x7f030020;
+        public static final int welcome=0x7f030021;
     }
     public static final class menu {
         public static final int main=0x7f0c0000;

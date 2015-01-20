@@ -61,8 +61,7 @@ public class Spider implements Runnable {
 
 	private String downloadPage(URL pageUrl) {
 		try {
-			HttpURLConnection conn = (HttpURLConnection) pageUrl
-					.openConnection();
+			HttpURLConnection conn = (HttpURLConnection) pageUrl.openConnection();
 			conn.setDoInput(true);
 			conn.setConnectTimeout(10000);
 			conn.setRequestMethod("GET");
@@ -151,9 +150,10 @@ public class Spider implements Runnable {
 		toCrawlList.addAll(getSpecificUrl(startUrl,caseSensitive,city));
 		
 		int count = 0;
-		while (toCrawlList.size() > 0) {
+		while (toCrawlList.size() > 0) {			
 			String specificUrl = removeWwwFromUrl(toCrawlList.iterator().next());
 			toCrawlList.remove(specificUrl);
+			//System.out.println("***********"+specificUrl+"&&&&"+toCrawlList.size());
 			String pageContents = getPageContents(specificUrl,caseSensitive);
 			if(pageContents == null){continue;}
 			

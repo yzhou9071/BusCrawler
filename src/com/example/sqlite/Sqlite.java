@@ -48,6 +48,7 @@ public class Sqlite extends SQLiteOpenHelper {
 		cv.put("POS", pos);
 		cv.put("ROUTES", routes);
 		cv.put("POINT", index);
+		//System.out.println("***********POS:"+pos+"**ROUTES:"+routes+"**INdex:"+index);
 		long row = db.insert(table_name, null, cv);
 		//db.close();
 		return row;
